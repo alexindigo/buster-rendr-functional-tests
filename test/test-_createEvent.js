@@ -31,16 +31,35 @@ buster.testCase('_createEvent',
     var event
       , type = 'touchstart'
       , target = common.createTargetElement.call(this)
+      , eventCoordinates = []
       ;
 
     // stub expected sub method
     this.stub(this.testObject, '_createTouchEvent');
 
     // invoke test subject
-    this.testObject._createEvent(type, target);
+    this.testObject._createEvent(type, target, eventCoordinates);
 
     // since no extend function is present check it's arguments
-    assert.calledWith(this.testObject._createTouchEvent, type, target);
+    assert.calledWith(this.testObject._createTouchEvent, type, target, eventCoordinates);
+  },
+
+  'Routes touchmove event with provided extra': function()
+  {
+    var event
+      , type = 'touchmove'
+      , target = common.createTargetElement.call(this)
+      , eventCoordinates = [200, 0]
+      ;
+
+    // stub expected sub method
+    this.stub(this.testObject, '_createTouchEvent');
+
+    // invoke test subject
+    this.testObject._createEvent(type, target, eventCoordinates);
+
+    // since no extend function is present check it's arguments
+    assert.calledWith(this.testObject._createTouchEvent, type, target, eventCoordinates);
   },
 
   'Routes mouseup event with provided extra': function()
